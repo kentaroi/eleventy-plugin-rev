@@ -73,6 +73,11 @@ test("revvedFilePathFromOutputPath_Liquid, revvedFilePathFromOutputPath_Nunjucks
   t.is(pluginRev.revvedFilePathFromOutputPath_JavaScript(undefined), undefined);
 });
 
+test("revvedFilePathFromInputPath without setPathPair", t => {
+  pluginRev.createRevHash("foo", "FOO");
+  t.is(pluginRev.revvedFilePathFromInputPath("foo"), undefined);
+});
+
 test("deleteRevHash", t => {
   pluginRev.createRevHash("foo", "FOO");
   t.is(pluginRev.revHashFromInputPath("foo"), expectedHash);
