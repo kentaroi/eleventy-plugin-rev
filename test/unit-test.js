@@ -45,10 +45,32 @@ test("revvedFilePath", t => {
 
 test("setPathPair, revHashFromOutputPath, revvedFilePathFromOutputPath and revvedFilePathFromInputPath", t => {
   pluginRev.createRevHash("foo", "FOO");
-  pluginRev.setPathPair("foo", "bar/baz.qux");
-  t.is(pluginRev.revHashFromOutputPath("bar/baz.qux"), expectedHash);
-  t.is(pluginRev.revvedFilePathFromOutputPath("bar/baz.qux"), `bar/baz-${ expectedHash }.qux`);
-  t.is(pluginRev.revvedFilePathFromInputPath("foo"), `bar/baz-${ expectedHash }.qux`);
+  pluginRev.setPathPair("foo", "/bar/baz.qux");
+  t.is(pluginRev.revHashFromOutputPath("/bar/baz.qux"), expectedHash);
+  t.is(pluginRev.revvedFilePathFromOutputPath("/bar/baz.qux"), `/bar/baz-${ expectedHash }.qux`);
+  t.is(pluginRev.revvedFilePathFromInputPath("foo"), `/bar/baz-${ expectedHash }.qux`);
+
+
+  t.is(pluginRev.revvedFilePathFromOutputPath(""), "");
+  t.is(pluginRev.revvedFilePathFromOutputPath(undefined), undefined);
+  t.is(pluginRev.revvedFilePathFromInputPath(""), "");
+  t.is(pluginRev.revvedFilePathFromInputPath(undefined), undefined);
+});
+
+test("revvedFilePathFromOutputPath_Liquid, revvedFilePathFromOutputPath_Nunjucks, revvedFilePathFromOutputPath_JavaScript", t => {
+  pluginRev.createRevHash("foo", "FOO");
+  pluginRev.setPathPair("foo", "/bar/baz.qux");
+  t.is(pluginRev.revvedFilePathFromOutputPath_Liquid("/bar/baz.qux"), `/bar/baz-${ expectedHash }.qux`);
+  t.is(pluginRev.revvedFilePathFromOutputPath_Nunjucks("/bar/baz.qux"), `/bar/baz-${ expectedHash }.qux`);
+  t.is(pluginRev.revvedFilePathFromOutputPath_JavaScript("/bar/baz.qux"), `/bar/baz-${ expectedHash }.qux`);
+
+
+  t.is(pluginRev.revvedFilePathFromOutputPath_Liquid(""), "");
+  t.is(pluginRev.revvedFilePathFromOutputPath_Nunjucks(""), "");
+  t.is(pluginRev.revvedFilePathFromOutputPath_JavaScript(""), "");
+  t.is(pluginRev.revvedFilePathFromOutputPath_Liquid(undefined), undefined);
+  t.is(pluginRev.revvedFilePathFromOutputPath_Nunjucks(undefined), undefined);
+  t.is(pluginRev.revvedFilePathFromOutputPath_JavaScript(undefined), undefined);
 });
 
 test("deleteRevHash", t => {

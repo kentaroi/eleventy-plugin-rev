@@ -2,23 +2,62 @@ const test = require("ava");
 const Eleventy = require("@11ty/eleventy");
 const pluginRev = require("..");
 
-test("rev and inputToRevvedOutput filters", async t => {
+
+let fileContent = "file content";
+let hash = pluginRev.generateRevHash(fileContent);
+let result;
+
+test.before(async t => {
   let elev = new Eleventy(
     "./test/fixture",
     "./test/fixture/_site",
     {
       config: function(eleventyConfig) {
         eleventyConfig.addPlugin(pluginRev);
-        pluginRev.createRevHash("assets/css/style.css", "file content");
+        pluginRev.createRevHash("assets/css/style.css", fileContent);
         pluginRev.setPathPair("assets/css/style.css", "/css/style.css");
+
+        pluginRev.createRevHash("relative/style.css", fileContent);
+        pluginRev.setPathPair("relative/style.css", "/relative/style.css");
       }
     }
   );
-  let result = await elev.toJSON();
+  result = await elev.toJSON();
+});
 
-  let hash = pluginRev.generateRevHash("file content");
+test("rev filter with absolute path", async t => {
   t.is(result.filter(entry => entry.url === "/rev/")[0].content,
     `<p>/css/style-${ hash }.css</p>\n`);
+});
+
+test("rev Liquid filter with relative path in markdown", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/md/rev/")[0].content,
+    `<p>/css/style-${ hash }.css</p>\n`);
+  t.is(result.filter(entry => entry.url === "/")[0].content,
+    `<p>/css/style-${ hash }.css</p>\n`);
+});
+
+test("rev Liquid filter with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/liquid/rev/")[0].content,
+    `/relative/style-${ hash }.css\n`);
+});
+
+test("rev Nunjucks filter with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/nunjucks/rev/")[0].content,
+    `/relative/style-${ hash }.css\n`);
+});
+
+test("rev Handlebars helper with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/handlebars/rev/")[0].content,
+    `/relative/style-${ hash }.css\n`);
+});
+
+test("rev JavaScript function with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/js/rev/")[0].content,
+    `/relative/style-${ hash }.css`);
+});
+
+test("inputToRevvedOutput filter", async t => {
   t.is(result.filter(entry => entry.url === "/input-to-revved-output/")[0].content,
     `<p>/css/style-${ hash }.css</p>\n`);
 });
