@@ -1,3 +1,5 @@
+const { EOL } = require("os");
+
 const test = require("ava");
 const Eleventy = require("@11ty/eleventy");
 const pluginRev = require("..");
@@ -39,17 +41,17 @@ test("rev Liquid filter with relative path in markdown", async t => {
 
 test("rev Liquid filter with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/liquid/rev/")[0].content,
-    `/relative/style-${ hash }.css\n`);
+    `/relative/style-${ hash }.css${ EOL }`);
 });
 
 test("rev Nunjucks filter with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/nunjucks/rev/")[0].content,
-    `/relative/style-${ hash }.css\n`);
+    `/relative/style-${ hash }.css${ EOL }`);
 });
 
 test("rev Handlebars helper with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/handlebars/rev/")[0].content,
-    `/relative/style-${ hash }.css\n`);
+    `/relative/style-${ hash }.css${ EOL }`);
 });
 
 test("rev JavaScript function with relative path", async t => {
