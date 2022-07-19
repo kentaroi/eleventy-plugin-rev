@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/kentaroi/eleventy-plugin-rev#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.1",
+    "@11ty/eleventy": "^1.0.0",
     "ava": "^4.3.0"
   }
 }
