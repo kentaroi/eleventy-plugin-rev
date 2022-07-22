@@ -1,5 +1,3 @@
-const { EOL } = require("os");
-
 const test = require("ava");
 const Eleventy = require("@11ty/eleventy");
 const pluginRev = require("..");
@@ -28,38 +26,38 @@ test.before(async t => {
 });
 
 test("rev filter with absolute path", async t => {
-  t.is(result.filter(entry => entry.url === "/rev/")[0].content,
-    `<p>/css/style-${ hash }.css</p>\n`);
+  t.is(result.filter(entry => entry.url === "/rev/")[0].content.trim(),
+    `<p>/css/style-${ hash }.css</p>`);
 });
 
 test("rev Liquid filter with relative path in markdown", async t => {
-  t.is(result.filter(entry => entry.url === "/relative/md/rev/")[0].content,
-    `<p>/css/style-${ hash }.css</p>\n`);
-  t.is(result.filter(entry => entry.url === "/")[0].content,
-    `<p>/css/style-${ hash }.css</p>\n`);
+  t.is(result.filter(entry => entry.url === "/relative/md/rev/")[0].content.trim(),
+    `<p>/css/style-${ hash }.css</p>`);
+  t.is(result.filter(entry => entry.url === "/")[0].content.trim(),
+    `<p>/css/style-${ hash }.css</p>`);
 });
 
 test("rev Liquid filter with relative path", async t => {
-  t.is(result.filter(entry => entry.url === "/relative/liquid/rev/")[0].content,
-    `/relative/style-${ hash }.css${ EOL }`);
+  t.is(result.filter(entry => entry.url === "/relative/liquid/rev/")[0].content.trim(),
+    `/relative/style-${ hash }.css`);
 });
 
 test("rev Nunjucks filter with relative path", async t => {
-  t.is(result.filter(entry => entry.url === "/relative/nunjucks/rev/")[0].content,
-    `/relative/style-${ hash }.css${ EOL }`);
+  t.is(result.filter(entry => entry.url === "/relative/nunjucks/rev/")[0].content.trim(),
+    `/relative/style-${ hash }.css`);
 });
 
 test("rev Handlebars helper with relative path", async t => {
-  t.is(result.filter(entry => entry.url === "/relative/handlebars/rev/")[0].content,
-    `/relative/style-${ hash }.css${ EOL }`);
+  t.is(result.filter(entry => entry.url === "/relative/handlebars/rev/")[0].content.trim(),
+    `/relative/style-${ hash }.css`);
 });
 
 test("rev JavaScript function with relative path", async t => {
-  t.is(result.filter(entry => entry.url === "/relative/js/rev/")[0].content,
+  t.is(result.filter(entry => entry.url === "/relative/js/rev/")[0].content.trim(),
     `/relative/style-${ hash }.css`);
 });
 
 test("inputToRevvedOutput filter", async t => {
-  t.is(result.filter(entry => entry.url === "/input-to-revved-output/")[0].content,
-    `<p>/css/style-${ hash }.css</p>\n`);
+  t.is(result.filter(entry => entry.url === "/input-to-revved-output/")[0].content.trim(),
+    `<p>/css/style-${ hash }.css</p>`);
 });
