@@ -73,6 +73,22 @@ test("revvedFilePathFromOutputPath_Liquid, revvedFilePathFromOutputPath_Nunjucks
   t.is(pluginRev.revvedFilePathFromOutputPath_JavaScript(undefined), undefined);
 });
 
+test("revvedOutputFilter_Liquid, revvedOutputFilter_Nunjucks, revvedOutputFilter_JavaScript", t => {
+  pluginRev.createRevHash("foo", "FOO");
+  pluginRev.setPathPair("foo", "/bar/baz.qux");
+  t.is(pluginRev.revvedOutputFilter_Liquid("/foo"), `/bar/baz-${ expectedHash }.qux`);
+  t.is(pluginRev.revvedOutputFilter_Nunjucks("/foo"), `/bar/baz-${ expectedHash }.qux`);
+  t.is(pluginRev.revvedOutputFilter_JavaScript("/foo"), `/bar/baz-${ expectedHash }.qux`);
+
+
+  t.is(pluginRev.revvedOutputFilter_Liquid(""), "");
+  t.is(pluginRev.revvedOutputFilter_Nunjucks(""), "");
+  t.is(pluginRev.revvedOutputFilter_JavaScript(""), "");
+  t.is(pluginRev.revvedOutputFilter_Liquid(undefined), undefined);
+  t.is(pluginRev.revvedOutputFilter_Nunjucks(undefined), undefined);
+  t.is(pluginRev.revvedOutputFilter_JavaScript(undefined), undefined);
+});
+
 test("revvedFilePathFromInputPath without setPathPair", t => {
   pluginRev.createRevHash("foo", "FOO");
   t.is(pluginRev.revvedFilePathFromInputPath("foo"), undefined);

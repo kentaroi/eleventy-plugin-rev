@@ -1,0 +1,1 @@
+{{ "../foo/style.css" | revvedOutput }}

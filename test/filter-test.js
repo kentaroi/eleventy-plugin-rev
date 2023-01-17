@@ -82,6 +82,36 @@ test("rev JavaScript function with relative path from not index.html", async t =
     `/relative/bar/style-${ hash }.css`);
 });
 
+test("revvedOutput filter with absolute path", async t => {
+  t.is(result.filter(entry => entry.url === "/revved-output/")[0].content.trim(),
+    `<p>/css/style-${ hash }.css</p>`);
+});
+
+test("revvedOutput Liquid filter with relative path in markdown", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/md/revved-output/")[0].content.trim(),
+    `<p>/relative/bar/style-${ hash }.css</p>`);
+});
+
+test("revvedOutput Liquid filter with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/liquid/revved-output/")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
+test("revvedOutput Nunjucks filter with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/nunjucks/revved-output/")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
+test("revvedOutput Handlebars helper with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/handlebars/revved-output/")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
+test("revvedOutput JavaScript function with relative path", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/js/revved-output/")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
 test("inputToRevvedOutput filter", async t => {
   t.is(result.filter(entry => entry.url === "/input-to-revved-output/")[0].content.trim(),
     `<p>/css/style-${ hash }.css</p>`);
