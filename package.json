@@ -20,5 +20,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^1.0.0",
     "ava": "^4.3.0"
+  },
+  "dependencies": {
+    "kleur": "^4.1.5"
   }
 }
