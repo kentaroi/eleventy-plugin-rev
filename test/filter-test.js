@@ -17,8 +17,8 @@ test.before(async t => {
         pluginRev.createRevHash("assets/css/style.css", fileContent);
         pluginRev.setPathPair("assets/css/style.css", "/css/style.css");
 
-        pluginRev.createRevHash("relative/style.css", fileContent);
-        pluginRev.setPathPair("relative/style.css", "/relative/style.css");
+        pluginRev.createRevHash("relative/foo/style.css", fileContent);
+        pluginRev.setPathPair("relative/foo/style.css", "/relative/bar/style.css");
       }
     }
   );
@@ -32,29 +32,29 @@ test("rev filter with absolute path", async t => {
 
 test("rev Liquid filter with relative path in markdown", async t => {
   t.is(result.filter(entry => entry.url === "/relative/md/rev/")[0].content.trim(),
-    `<p>/css/style-${ hash }.css</p>`);
+    `<p>/relative/bar/style-${ hash }.css</p>`);
   t.is(result.filter(entry => entry.url === "/")[0].content.trim(),
     `<p>/css/style-${ hash }.css</p>`);
 });
 
 test("rev Liquid filter with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/liquid/rev/")[0].content.trim(),
-    `/relative/style-${ hash }.css`);
+    `/relative/bar/style-${ hash }.css`);
 });
 
 test("rev Nunjucks filter with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/nunjucks/rev/")[0].content.trim(),
-    `/relative/style-${ hash }.css`);
+    `/relative/bar/style-${ hash }.css`);
 });
 
 test("rev Handlebars helper with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/handlebars/rev/")[0].content.trim(),
-    `/relative/style-${ hash }.css`);
+    `/relative/bar/style-${ hash }.css`);
 });
 
 test("rev JavaScript function with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/js/rev/")[0].content.trim(),
-    `/relative/style-${ hash }.css`);
+    `/relative/bar/style-${ hash }.css`);
 });
 
 test("inputToRevvedOutput filter", async t => {

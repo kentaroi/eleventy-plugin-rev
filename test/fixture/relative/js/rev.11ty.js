@@ -1,3 +1,3 @@
 module.exports = function() {
-  return this.rev("../../style.css");
+  return this.rev("../../bar/style.css");
 };

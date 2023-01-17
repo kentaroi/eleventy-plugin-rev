@@ -1,1 +1,1 @@
-{{ "../../../css/style.css" | rev }}
+{{ "../../bar/style.css" | rev }}
