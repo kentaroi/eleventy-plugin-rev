@@ -37,8 +37,18 @@ test("rev Liquid filter with relative path in markdown", async t => {
     `<p>/css/style-${ hash }.css</p>`);
 });
 
+test("rev Liquid filter with relative path in markdown from not index.html", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/md/rev-not-index-html.html")[0].content.trim(),
+    `<p>/relative/bar/style-${ hash }.css</p>`);
+});
+
 test("rev Liquid filter with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/liquid/rev/")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
+test("rev Liquid filter with relative path from not index.html", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/liquid/rev-not-index-html.html")[0].content.trim(),
     `/relative/bar/style-${ hash }.css`);
 });
 
@@ -47,13 +57,28 @@ test("rev Nunjucks filter with relative path", async t => {
     `/relative/bar/style-${ hash }.css`);
 });
 
+test("rev Nunjucks filter with relative path from not index.html", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/nunjucks/rev-not-index-html.html")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
 test("rev Handlebars helper with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/handlebars/rev/")[0].content.trim(),
     `/relative/bar/style-${ hash }.css`);
 });
 
+test("rev Handlebars helper with relative path from not index.html", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/handlebars/rev-not-index-html.html")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
 test("rev JavaScript function with relative path", async t => {
   t.is(result.filter(entry => entry.url === "/relative/js/rev/")[0].content.trim(),
+    `/relative/bar/style-${ hash }.css`);
+});
+
+test("rev JavaScript function with relative path from not index.html", async t => {
+  t.is(result.filter(entry => entry.url === "/relative/js/rev-not-index-html.html")[0].content.trim(),
     `/relative/bar/style-${ hash }.css`);
 });
 
