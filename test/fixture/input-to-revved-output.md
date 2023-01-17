@@ -1,1 +1,1 @@
-{{ "assets/css/style.css" | inputToRevvedOutput }}
+{{ "test/fixture/assets/css/style.css" | inputToRevvedOutput }}

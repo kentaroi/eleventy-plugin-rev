@@ -14,11 +14,11 @@ test.before(async t => {
     {
       config: function(eleventyConfig) {
         eleventyConfig.addPlugin(pluginRev);
-        pluginRev.createRevHash("assets/css/style.css", fileContent);
-        pluginRev.setPathPair("assets/css/style.css", "/css/style.css");
+        pluginRev.createRevHash("test/fixture/assets/css/style.css", fileContent);
+        pluginRev.setPathPair("test/fixture/assets/css/style.css", "/css/style.css");
 
-        pluginRev.createRevHash("relative/foo/style.css", fileContent);
-        pluginRev.setPathPair("relative/foo/style.css", "/relative/bar/style.css");
+        pluginRev.createRevHash("test/fixture/relative/foo/style.css", fileContent);
+        pluginRev.setPathPair("test/fixture/relative/foo/style.css", "/relative/bar/style.css");
       }
     }
   );
