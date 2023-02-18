@@ -22,6 +22,7 @@
     "ava": "^4.3.0"
   },
   "dependencies": {
+    "eleventy-plugin-output-path": "^1.2.1",
     "kleur": "^4.1.5"
   }
 }
