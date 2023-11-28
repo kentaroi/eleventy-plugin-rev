@@ -2,9 +2,9 @@ const test = require("ava");
 const pluginRev = require("..");
 const { createHash } = require("crypto");
 
-const expectedHash = createHash("md5").update("FOO").digest("hex").slice(0, 8);
-const expectedSHA1Hash = createHash("sha1").update("FOO").digest("hex").slice(0, 8);
-const expectedLongerHash = createHash("md5").update("FOO").digest("hex").slice(0, 12);
+const expectedHash = createHash("sha256").update("FOO").digest("hex").slice(0, 8);
+const expectedSHA3Hash = createHash("sha3-256").update("FOO").digest("hex").slice(0, 8);
+const expectedLongerHash = createHash("sha256").update("FOO").digest("hex").slice(0, 12);
 
 test.beforeEach(t => {
   pluginRev.clear();
@@ -16,10 +16,10 @@ test("generateRevHash", t => {
 });
 
 test("settings.hashAlgorithm", t => {
-  pluginRev.settings.hashAlgorithm = "sha1";
+  pluginRev.settings.hashAlgorithm = "sha3-256";
   let hash = pluginRev.generateRevHash("FOO");
-  t.is(hash, expectedSHA1Hash);
-  pluginRev.settings.hashAlgorithm = "md5";
+  t.is(hash, expectedSHA3Hash);
+  pluginRev.settings.hashAlgorithm = "sha256";
 });
 
 test("settings.hashLength", t => {
